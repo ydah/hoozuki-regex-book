@@ -1,0 +1,41 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.chapter }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        chapter:
+          - ch01
+          - ch02
+          - ch03
+          - ch04
+          - ch05
+          - ch06
+          - ch07
+          - ch08
+          - ch09
+          - ch10
+    defaults:
+      run:
+        working-directory: ${{ matrix.chapter }}/hoozuki
+
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3.8'
+          bundler-cache: true
+          working-directory: ${{ matrix.chapter }}/hoozuki
+      - run: bundle exec rspec
