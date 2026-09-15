@@ -1,0 +1,4 @@
+desc 'benchmark parser, compilation, and matching separately'
+task :benchmark do
+  ruby 'benchmark/engine.rb'
+end
